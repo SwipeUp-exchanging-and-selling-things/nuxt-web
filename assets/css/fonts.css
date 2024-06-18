@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'Comfortaa';
+  src: url('@/static/fonts/comfortaa/Comfortaa-VariableFont_wght.ttf') format('truetype');
+  font-weight: Comfortaa-Bold;
+  font-style: Comfortaa-Bold;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('@/static/fonts/manrope/Manrope-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('@/static/fonts/manrope/Manrope-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Manrope-Light';
+  src: url('@/static/fonts/manrope/Manrope-VariableFont_wght.ttf') format('truetype');
+  font-weight: Manrope-Light;
+  font-style: Manrope-Light;
+}
