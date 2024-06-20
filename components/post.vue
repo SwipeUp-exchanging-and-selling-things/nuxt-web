@@ -62,25 +62,9 @@
   padding-top: 111.72px;
 }
 
-.post .content {
-  height: 573px;
-  width: 100%;
-
-  flex-shrink: 0;
-  background-color: rgba(255, 255, 255, 1);
-  background-image: url(../assets/images/background_group_1.png);
-  background-size: cover;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-}
-
 .content .txt1 {
   height: fit-content;
   width: fit-content;
-
   color: #000;
   text-align: center;
   font-feature-settings: 'ss01' on, 'salt' on;
@@ -89,14 +73,12 @@
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-
   margin-top: 10.7rem;
 }
 
 .content .txt2 {
   height: fit-content;
   width: fit-content;
-
   color: #000;
   text-align: center;
   font-family: Geologica, serif;
@@ -104,7 +86,6 @@
   font-style: normal;
   font-weight: 100;
   line-height: normal;
-
   margin-top: 1.56rem;
 }
 
@@ -121,7 +102,6 @@
   font-style: normal;
   font-weight: 100;
   line-height: normal;
-
   margin-top: 3.37rem;
 }
 
@@ -137,10 +117,8 @@
   width: 100%;
   flex-shrink: 0;
   background: #FFF;
-
   display: flex;
   flex-direction: column;
-
   padding-left: 4.25rem;
   padding-right: 4.37rem;
 }
@@ -151,7 +129,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
 }
 
 .how .txt .txt1 {
@@ -171,7 +148,6 @@
   font-style: normal;
   font-weight: 100;
   line-height: normal;
-
   margin-right: 2.31rem;
 }
 
@@ -187,9 +163,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-
   margin-top: 3.31rem;
-
 }
 
 .guide .container {
@@ -212,17 +186,43 @@
   font-style: normal;
   font-weight: 100;
   line-height: normal;
-
   margin-top: 18.12rem;
 }
 
 .hr-line {
   width: 100%;
-  /* blue line */
   margin: 0 0;
   padding: 0;
   height: 0;
   border: none;
   border-top: 1px solid #c1c1c2;
+}
+
+@media (max-width: 768px) {
+  .post .content[data-v-a4fef34a] {
+    height: 80vh;
+    width: 100%;
+    flex-shrink: 0;
+    background-color: rgba(255, 255, 255, 1);
+    background-image: url(/_nuxt/assets/images/background_group_3.png);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .post .content[data-v-a4fef34a] {
+    height: 573px;
+    width: 100%;
+    flex-shrink: 0;
+    background-color: rgba(255, 255, 255, 1);
+    background-image: url(/_nuxt/assets/images/background_group_2.png);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 </style>

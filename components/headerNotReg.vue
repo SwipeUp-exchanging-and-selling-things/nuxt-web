@@ -21,8 +21,10 @@ export default {
       showOverlayConfNumb: false,
       showFormConfNumb: false,
       showOverlaySuccesReg: false,
-      showSuccesReg: false
-
+      showSuccesReg: false,
+      showMobileMenu: false,
+      hideLogo: false,
+      screenWidth: window.innerWidth
     };
   },
   methods: {
@@ -41,20 +43,84 @@ export default {
     toggleSuccesRegForm(){
       this.showOverlaySuccesReg = !this.showOverlaySuccesReg;
       this.showSuccesReg = !this.showSuccesReg;
+    },
+    toggleMobileMenu() {
+      this.showMobileMenu = !this.showMobileMenu;
+    },
+    toggleCategories() {
+      console.log("Categories button clicked");
+    },
+    hideLogoOnFocus() {
+      if (this.screenWidth < 768) {
+        this.hideLogo = true;
+      }
+    },
+    showLogoOnBlur() {
+      this.hideLogo = false;
+    },
+    updateScreenWidth() {
+      this.screenWidth = window.innerWidth;
     }
+  },
+  mounted() {
+    window.addEventListener('resize', this.updateScreenWidth);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.updateScreenWidth);
   }
 }
 </script>
 
 <template>
-
   <header class="scroll">
-    <a @click="$router.push('/')" class="logo">Swipe Up</a>
+    <a @click="$router.push('/')" class="logo" :class="{ hidden: hideLogo }">Swipe Up</a>
     <form class="search">
-      <input id="search_text" type="text" placeholder="Найти...">
+      <input id="search_text" type="text" placeholder="Найти..." @focus="hideLogoOnFocus" @blur="showLogoOnBlur">
       <button id="search_button" type="submit"></button>
     </form>
     <div class="buttons">
+      <button @click="toggleMobileMenu" class="mobile-menu-button"></button>
+      
+      <!-- Sliding Panel -->
+      <div :class="{'show-mobile-menu': showMobileMenu}" class="mobile-menu-panel">
+        <button class="login-mob" @click="toggleLoginForm">
+          <img src="@/assets/images/icon-person.svg" alt="Login Icon" style="margin-right: 8px;" />
+          Войти
+        </button>
+        <button class="registration-mob" @click="toggleRegForm">Регистрация</button>
+        <button class="catalog-mob" @click="toggleCategories">
+          Категории
+          <img src="@/assets/images/arrow-icon.svg" alt="Arrow Icon" style="margin-left: 8px;" />
+        </button>
+        <div class="dropdown-mob">
+        <div class="dropdown-content-mob" id="dropdown-content">
+          <div class="dropdown-mini-mob" id="dropdown-mini-4">
+            <a href="#" id="chapter-4">Для детей</a>
+          </div>
+          <div class="dropdown-mini-mob" id="dropdown-mini-1">
+            <a href="#" id="chapter-1">Одежда, обувь, аксессуары</a>
+          </div>
+          <div class="dropdown-mini-mob" id="dropdown-mini-2">
+            <a href="#" id="chapter-2">Хобби и отдых</a>
+          </div>
+          <div class="dropdown-mini-mob" id="dropdown-mini-3">
+            <a href="#" id="chapter-3">Красота и здоровье</a>
+          </div>
+          <div class="dropdown-mini-mob" id="dropdown-mini-5">
+            <a href="#" id="chapter-5">Для дома и дачи</a>
+          </div>
+          <div class="dropdown-mini-mob" id="dropdown-mini-6">
+            <a href="#" id="chapter-6">Электроника</a>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <LoginForm v-if="showForm" />
+      <RegistrationForm v-if="showFormReg" />
+      <ConfirmationNumber v-if="showFormConfNumb" />
+      <SuccessfullyRegistrationеForm v-if="showSuccesReg" />
+
       <div class="dropdown">
         <button class="button-catalog" id="main-category">
           Категории
@@ -139,8 +205,6 @@ export default {
 
       <div class="overlay" v-if="showOverlaySuccesReg" @click="toggleSuccesRegForm"></div>
       <SuccessfullyRegistrationеForm v-if="showSuccesReg" @click="toggleSuccesRegForm" @closeFormSuccesReg="toggleSuccesRegForm"></SuccessfullyRegistrationеForm>
-
-
     </div>
   </header>
 </template>
@@ -149,17 +213,11 @@ export default {
 header {
   height: 112px;
   width: 100%;
-
   border-bottom: 1px solid #c1c1c2;
-
-
   background: rgba(255, 255, 255, 1);
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
-
   position: fixed;
   top: 0;
   left: 0;
@@ -171,7 +229,6 @@ header {
 .logo {
   height: fit-content;
   width: fit-content;
-
   color: #000;
   font-family: Comfortaa, serif;
   font-size: 48px;
@@ -179,42 +236,34 @@ header {
   font-weight: 700;
   line-height: normal;
   letter-spacing: 2px;
-
-  margin-top: 20px;
-  margin-left: 65px;
-
+  margin: 0;
+  flex-shrink: 0;
   cursor: pointer;
+  align-self: center;
+  margin-left: 5vw;
 }
 
 .logo:hover {
   transform: scale(1.01);
-
 }
 
 .search {
   display: flex;
   justify-content: end;
   align-items: center;
-
-
   width: 27.375rem;
   height: 3.75rem;
   margin-top: 28px;
   margin-left: 5vw;
-
 }
-
 
 .search input {
   width: 27.375rem;
   height: 3.75rem;
-
   outline: none;
-
   border-radius: 1.5625rem;
   border: 3px solid #D9D9D9;
   background: #FFF;
-
   color: #000;
   font-family: Manrope, serif;
   font-size: 1.25rem;
@@ -232,14 +281,12 @@ header {
   background-size: 100% 100%;
   cursor: pointer;
   outline: none;
-
   fill: #0021CF;
   stroke-width: 3px;
   stroke: #0021CF;
   border-radius: 1rem;
-
   position: absolute;
-  margin-right: 0.5vw;
+  margin-right: 8px;
 }
 
 .search button:before {
@@ -254,7 +301,6 @@ header {
 .buttons {
   height: fit-content;
   width: fit-content;
-
   color: #000;
   text-align: center;
   font-family: Geologica, serif;
@@ -262,10 +308,8 @@ header {
   font-style: normal;
   font-weight: 100;
   line-height: normal;
-
   display: flex;
   flex-direction: row;
-
   margin-top: 28px;
 }
 
@@ -278,11 +322,9 @@ header {
   background: rgba(255, 180, 239, 0.14);
 }
 
-
 .button-catalog {
   width: 100px;
   height: 58px;
-
   margin-right: 20px;
 }
 
@@ -297,7 +339,6 @@ header {
   background-color: #f9f9f9;
   min-width: 160px;
   z-index: 1;
-
   margin-right: 10px;
 }
 
@@ -312,7 +353,6 @@ header {
   min-width: 160px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
-
   margin-top: -36px;
   margin-left: -298px;
 }
@@ -321,9 +361,33 @@ header {
   background-color: #FFDAF7;
 }
 
+.dropdown-content-mob {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 15px;
+}
+
+.dropdown-mini-mob {
+  width: 100%;
+  text-align: right;
+}
+
+.dropdown-mini-mob a {
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: #000;
+}
+
+.dropdown-mini-mob a:hover {
+  background-color: #f0f0f0;
+}
+
+
 .button-login {
   width: 69px;
-
   margin-right: 45px;
 }
 
@@ -333,11 +397,9 @@ header {
   flex-shrink: 0;
   border-radius: 25px;
   border: 3px solid #0021CF;
-
   margin-right: 74px;
 }
 
-/* for form & modal windows */
 .overlay {
   position: fixed;
   top: 0;
@@ -345,6 +407,195 @@ header {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 1; /* Make sure this is below your login form in z-index */
+  z-index: 1;
+}
+
+.mobile-menu-button {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.mobile-menu-panel {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  background-color: white;
+  transition: right 0.3s ease;
+  z-index: 1000;
+  margin-top: 70px;
+  height: 500px;
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 18px;
+}
+
+.show-mobile-menu {
+  margin-top: 70px;
+  right: 0;
+  height: 400px;
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 18px;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+}
+
+.search button {
+  z-index: 1;
+}
+
+.logo.hidden {
+  display: none;
+}
+
+.mobile-menu-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-mob,
+.registration-mob {
+  border: 1px solid black;
+  margin-top: 15px;
+  border-radius: 18px;
+  height: 51px;
+  width: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0021CF;
+  font-family: 'Comfortaa';
+}
+
+.catalog-mob {
+  margin-bottom: 10px;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  margin-left: 95px;
+}
+
+@media only screen and (max-width: 768px) {
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    height: 60px;
+  }
+
+  .search input:focus {
+    width: 75vw;
+    left: 0;
+    z-index: 1;
+    transition: width 0.3s ease-in-out;
+  }
+
+  .logo {
+    font-size: 22.54px;
+    text-align: center;
+    margin: 0;
+    margin-left: 3vw;
+  }
+
+  .search {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin: 0px;
+  }
+
+  .search input {
+    height: 80%;
+    width: 150px;
+    border-radius: 18px;
+    margin: 0 10px;
+  }
+
+  .search button {
+    border-radius: 13px;
+    height: 35px;
+    width: 35px;
+    margin-right: 17px;
+  }
+
+  .button-catalog,
+  .button-login,
+  .button-register {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+    fill: #0021CF;
+    background-image: url(../assets/images/burger-menu.svg);
+    margin-top: 40%;
+  }
+
+  .buttons {
+    margin: 0px;
+  }
+}
+
+@media (min-width: 768px) {
+  .show-mobile-menu[data-v-1009d52e] {
+      right: -250px;
+      height: 500px;
+      box-shadow: none;
+  }
+
+  .logo.hidden {
+    display: inline;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .search input{
+    width: 30vw;
+  }
+  .buttons button {
+    font-size: 18px;
+    padding: 8px;
+    margin-right: 1vw;
+    width: inherit;
+  }
+
+  .logo {
+    font-size: 34px;
+    margin-left: 1vw;
+  }
+
+  .search {
+    margin-left: 10px;
+  }
+
+  .mobile-menu-panel{
+    display: none;
+  }
+}
+
+@media (min-width: 1025px) {
+  .search input{
+    width: 40vw;
+  }
+
+  .search{
+    width: 30vw;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .buttons button {
+    font-size: 18px;
+    padding: 10px;
+    margin-right: 1vw;
+  }
+
+  .logo {
+    margin-left: 3vw;
+  }
 }
 </style>
