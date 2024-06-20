@@ -204,7 +204,7 @@
     width: 100%;
     flex-shrink: 0;
     background-color: rgba(255, 255, 255, 1);
-    background-image: url(/_nuxt/assets/images/background_group_3.png);
+    background-image: url(../assets/images/background_group_3.png);
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -218,7 +218,7 @@
     width: 100%;
     flex-shrink: 0;
     background-color: rgba(255, 255, 255, 1);
-    background-image: url(/_nuxt/assets/images/background_group_2.png);
+    background-image: url(../assets/images/background_group_2.png);
     background-size: cover;
     display: flex;
     flex-direction: column;
