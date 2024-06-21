@@ -24,7 +24,9 @@ export default {
       showSuccesReg: false,
       showMobileMenu: false,
       hideLogo: false,
-      screenWidth: window.innerWidth
+      screenWidth: window.innerWidth,
+      showDropdown: false,
+      mobileMenuHeight: '200px'
     };
   },
   methods: {
@@ -50,6 +52,11 @@ export default {
     toggleCategories() {
       console.log("Categories button clicked");
     },
+    handleOutsideClick(event) {
+      if (this.$refs.mobileMenu && !this.$refs.mobileMenu.contains(event.target) && !this.$refs.mobileMenuButton.contains(event.target)) {
+        this.showMobileMenu = false;
+      }
+    },
     hideLogoOnFocus() {
       if (this.screenWidth < 768) {
         this.hideLogo = true;
@@ -60,12 +67,26 @@ export default {
     },
     updateScreenWidth() {
       this.screenWidth = window.innerWidth;
+    },
+    toggleCategories() {
+      this.showDropdown = !this.showDropdown;
+    },
+    toggleMobileMenuHeight() {
+      console.log('Toggling mobile menu height');
+      this.mobileMenuHeight = this.mobileMenuHeight === '200px' ? '400px' : '200px';
+      console.log('New mobileMenuHeight:', this.mobileMenuHeight);
+    },
+    handleClick() {
+      this.toggleCategories();
+      this.toggleMobileMenuHeight();
     }
   },
   mounted() {
+    document.addEventListener('click', this.handleOutsideClick);
     window.addEventListener('resize', this.updateScreenWidth);
   },
   beforeDestroy() {
+    document.removeEventListener('click', this.handleOutsideClick);
     window.removeEventListener('resize', this.updateScreenWidth);
   }
 }
@@ -79,41 +100,42 @@ export default {
       <button id="search_button" type="submit"></button>
     </form>
     <div class="buttons">
-      <button @click="toggleMobileMenu" class="mobile-menu-button"></button>
+      <button ref="mobileMenuButton" @click="toggleMobileMenu" class="mobile-menu-button"></button>
       
-      <!-- Sliding Panel -->
-      <div :class="{'show-mobile-menu': showMobileMenu}" class="mobile-menu-panel">
+      <div :class="{'show-mobile-menu': showMobileMenu}" class="mobile-menu-panel"  :style="{ height: mobileMenuHeight }" ref="mobileMenu">
         <button class="login-mob" @click="toggleLoginForm">
           <img src="@/assets/images/icon-person.svg" alt="Login Icon" style="margin-right: 8px;" />
           Войти
         </button>
         <button class="registration-mob" @click="toggleRegForm">Регистрация</button>
-        <button class="catalog-mob" @click="toggleCategories">
+        <button class="catalog-mob" @click="handleClick">
           Категории
-          <img src="@/assets/images/arrow-icon.svg" alt="Arrow Icon" style="margin-left: 8px;" />
+          <img :class="{ rotated: showDropdown }" src="@/assets/images/arrow-icon.svg" alt="Arrow Icon" style="margin-left: 8px;" />
         </button>
-        <div class="dropdown-mob">
-        <div class="dropdown-content-mob" id="dropdown-content">
-          <div class="dropdown-mini-mob" id="dropdown-mini-4">
-            <a href="#" id="chapter-4">Для детей</a>
+        <transition name="fade">
+          <div class="dropdown-mob" v-if="showDropdown">
+          <div class="dropdown-content-mob" id="dropdown-content">
+            <div class="dropdown-mini-mob" id="dropdown-mini-4">
+              <a href="#" id="chapter-4">Для детей</a>
+            </div>
+            <div class="dropdown-mini-mob" id="dropdown-mini-1">
+              <a href="#" id="chapter-1">Одежда, обувь, аксессуары</a>
+            </div>
+            <div class="dropdown-mini-mob" id="dropdown-mini-2">
+              <a href="#" id="chapter-2">Хобби и отдых</a>
+            </div>
+            <div class="dropdown-mini-mob" id="dropdown-mini-3">
+              <a href="#" id="chapter-3">Красота и здоровье</a>
+            </div>
+            <div class="dropdown-mini-mob" id="dropdown-mini-5">
+              <a href="#" id="chapter-5">Для дома и дачи</a>
+            </div>
+            <div class="dropdown-mini-mob" id="dropdown-mini-6">
+              <a href="#" id="chapter-6">Электроника</a>
+            </div>
           </div>
-          <div class="dropdown-mini-mob" id="dropdown-mini-1">
-            <a href="#" id="chapter-1">Одежда, обувь, аксессуары</a>
           </div>
-          <div class="dropdown-mini-mob" id="dropdown-mini-2">
-            <a href="#" id="chapter-2">Хобби и отдых</a>
-          </div>
-          <div class="dropdown-mini-mob" id="dropdown-mini-3">
-            <a href="#" id="chapter-3">Красота и здоровье</a>
-          </div>
-          <div class="dropdown-mini-mob" id="dropdown-mini-5">
-            <a href="#" id="chapter-5">Для дома и дачи</a>
-          </div>
-          <div class="dropdown-mini-mob" id="dropdown-mini-6">
-            <a href="#" id="chapter-6">Электроника</a>
-          </div>
-        </div>
-        </div>
+        </transition>
       </div>
 
       <LoginForm v-if="showForm" />
@@ -435,7 +457,7 @@ header {
 .show-mobile-menu {
   margin-top: 70px;
   right: 0;
-  height: 400px;
+  height: 200px;
   border-top-left-radius: 18px;
   border-bottom-left-radius: 18px;
   box-shadow: -2px 0 5px rgba(0,0,0,0.5);
@@ -475,6 +497,18 @@ header {
   display: flex;
   align-items: center;
   margin-left: 95px;
+}
+
+.fade-enter, .fade-leave-to{
+  opacity: 0;
+}
+
+img {
+  transition: transform 0.3s;
+}
+
+.rotated {
+  transform: rotate(180deg);
 }
 
 @media only screen and (max-width: 768px) {

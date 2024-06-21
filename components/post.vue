@@ -128,14 +128,12 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 }
 
 .how .txt .txt1 {
   color: #000;
   font-feature-settings: 'liga' off;
   font-family: Comfortaa, serif;
-  font-size: 2rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -148,7 +146,6 @@
   font-style: normal;
   font-weight: 100;
   line-height: normal;
-  margin-right: 2.31rem;
 }
 
 .how .button-more:hover {
@@ -167,8 +164,6 @@
 }
 
 .guide .container {
-  width: 26.25rem;
-  height: 23.5625rem;
   flex-shrink: 0;
   border-radius: 1.5625rem;
   border: 1px solid #0021CF;
@@ -199,7 +194,7 @@
 }
 
 @media (max-width: 768px) {
-  .post .content[data-v-a4fef34a] {
+  .post .content{
     height: 80vh;
     width: 100%;
     flex-shrink: 0;
@@ -210,11 +205,52 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .txt {
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .guide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container {
+    margin-bottom: 45px;
+    width: 90%;
+    height: 350px;
+  }
+
+  #container3 {
+    margin-bottom: 70px;
+  }
+
+  .how {
+    height: auto;
+    width: 80vw;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .button-more {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: 0;
+    margin-top: 1250px;
+  }
+
+  .txt1 {
+    font-size: 24px;
+  }
 }
 
 @media (min-width: 768px) {
-  .post .content[data-v-a4fef34a] {
-    height: 573px;
+  .post .content{
+    height: 80vh;
     width: 100%;
     flex-shrink: 0;
     background-color: rgba(255, 255, 255, 1);
@@ -223,6 +259,47 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .container {
+    width: 26.25rem;
+    height: 23.5625rem;
+  }
+
+  .button-more{
+    margin-right: 2.31rem;
+  }
+
+  .txt1 {
+    font-size: 2rem;
+  }
+
+  .how .txt {
+    height: 2.25rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1450px) {
+  .container {
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 45px;
+  }
+  .guide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .how {
+    height: auto;
+    width: 80vw;
+    margin: 0 auto;
+    padding: 0;
   }
 }
 </style>
