@@ -212,17 +212,14 @@ a.link {
   text-decoration-line: underline;
 }
 
-/* Adaptation for mobile devices */
-
-@media (max-width: 769px) {
+@media (min-width: 450px) and (max-width: 769px) {
   .container {
     display: flex;
     flex-direction: column;
     padding-left: 35px;
     padding-right: 41px;
     padding-top: 43px;
-
-    width: 400px;
+    width: 80vw;
     height: 594px;
     flex-shrink: 0;
     border-radius: 25px;
@@ -291,5 +288,42 @@ button:hover {
 .close-button img:hover {
   transform: scale(1.12);
   cursor: pointer;
+}
+
+@media (max-width: 450px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 35px;
+    padding-right: 41px;
+    padding-top: 43px;
+    width: 80vw;
+    height: 630px;
+    flex-shrink: 0;
+    border-radius: 25px;
+    border: 1px solid #0021CF;
+    background: #FFF;
+    box-shadow: 18px 18px 30px -7px rgba(0, 0, 0, 0.25);
+  }
+
+  #regAndLog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5vh;
+  }
+
+  #regAndLog #ButtonReg {
+    margin-bottom: 1vh;
+  }
+
+  #numberAndEmail {
+    margin-bottom: 1vh;
+  }
+
+  #login {
+    margin-bottom: 5vh;
+  }
 }
 </style>
