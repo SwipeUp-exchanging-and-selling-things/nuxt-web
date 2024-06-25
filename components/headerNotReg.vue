@@ -407,7 +407,6 @@ header {
   background-color: #f0f0f0;
 }
 
-
 .button-login {
   width: 69px;
   margin-right: 45px;
@@ -576,7 +575,7 @@ img {
 }
 
 @media (min-width: 768px) {
-  .show-mobile-menu[data-v-1009d52e] {
+  .show-mobile-menu {
       right: -250px;
       height: 500px;
       box-shadow: none;
@@ -591,6 +590,7 @@ img {
   .search input{
     width: 30vw;
   }
+
   .buttons button {
     font-size: 18px;
     padding: 8px;
@@ -622,6 +622,7 @@ img {
     margin-left: 10px;
     margin-right: 10px;
   }
+  
   .buttons button {
     font-size: 18px;
     padding: 10px;
