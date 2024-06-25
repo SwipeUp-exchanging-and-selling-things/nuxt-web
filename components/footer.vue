@@ -68,10 +68,40 @@ footer .buttons-navi {
   font-weight: 100;
   line-height: normal;
 
-  margin-inline: 2.8rem;
+  margin-left: 2.8rem;
 }
 
 .buttons-navi:hover {
   transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: auto;
+    padding-left: 4%;
+    padding-right: 4%;
+    margin-left: 4vw;
+  }
+
+  footer .navigation {
+    order: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 1rem;
+  }
+
+  footer .buttons-navi {
+    margin: 0.5rem 0;
+  }
+
+  footer .copyright {
+    order: 2;
+    margin-top: 1rem;
+    align-self: flex-start;
+    font-size: 13px;
+  }
 }
 </style>

@@ -16,18 +16,17 @@ export default {
       showOverlayReg: false,
       showFormReg: false,
       showOverlayConfNumb: false,
-      showFormConfNumb: false
+      showFormConfNumb: false,
+      showOverlaySuccesReg: false,
+      showSuccesReg: false,
+      showMobileMenu: false,
+      hideLogo: false,
+      screenWidth: window.innerWidth,
+      showDropdown: false,
+      mobileMenuHeight: '200px'
     };
   },
   methods: {
-    toggleLoginForm() {
-      this.showOverlay = !this.showOverlay;
-      this.showForm = !this.showForm;
-    },
-    toggleRegForm() {
-      this.showOverlayReg = !this.showOverlayReg;
-      this.showFormReg = !this.showFormReg;
-    },
     toggleConfNumbForm() {
       this.showOverlayConfNumb = !this.showOverlayConfNumb;
       this.showFormConfNumb = !this.showFormConfNumb;
@@ -37,10 +36,57 @@ export default {
     },
     goToProfileSettings() {
       this.$router.push('/profile/settings');
+    },
+    toggleSuccesRegForm(){
+      this.showOverlaySuccesReg = !this.showOverlaySuccesReg;
+      this.showSuccesReg = !this.showSuccesReg;
+    },
+    toggleMobileMenu() {
+      this.showMobileMenu = !this.showMobileMenu;
+    },
+    toggleCategories() {
+      console.log("Categories button clicked");
+    },
+    handleOutsideClick(event) {
+      if (this.$refs.mobileMenu && !this.$refs.mobileMenu.contains(event.target) && !this.$refs.mobileMenuButton.contains(event.target)) {
+        this.showMobileMenu = false;
+      }
+    },
+    hideLogoOnFocus() {
+      if (this.screenWidth < 768) {
+        this.hideLogo = true;
+      }
+    },
+    showLogoOnBlur() {
+      this.hideLogo = false;
+    },
+    updateScreenWidth() {
+      this.screenWidth = window.innerWidth;
+    },
+    toggleCategories() {
+      this.showDropdown = !this.showDropdown;
+    },
+    toggleMobileMenuHeight() {
+      console.log('Toggling mobile menu height');
+      this.mobileMenuHeight = this.mobileMenuHeight === '200px' ? '400px' : '200px';
+      console.log('New mobileMenuHeight:', this.mobileMenuHeight);
+    },
+    handleClick() {
+      this.toggleCategories();
+      this.toggleMobileMenuHeight();
     }
   },
   async mounted() {
-    await this.$runTokenVerification();
+    // await this.$runTokenVerification();
+    //TODO 
+  },
+  mounted() {
+    document.addEventListener('click', this.handleOutsideClick);
+    window.addEventListener('resize', this.updateScreenWidth);
+  },
+  beforeDestroy() {
+    document.removeEventListener('click', this.handleOutsideClick);
+    window.removeEventListener('resize', this.updateScreenWidth);
   }
 }
 </script>
@@ -48,12 +94,53 @@ export default {
 <template>
 
   <header class="scroll">
-    <a @click="$router.push('/auth')" class="logo">Swipe Up</a>
+    <a @click="$router.push('/auth')" class="logo" :class="{ hidden: hideLogo }">Swipe Up</a>
     <form class="search">
-      <input id="search_text" type="text" placeholder="Найти...">
+      <input id="search_text" type="text" placeholder="Найти..." @focus="hideLogoOnFocus" @blur="showLogoOnBlur">
       <button id="search_button" type="submit"></button>
     </form>
     <div class="buttons">
+
+      <button ref="mobileMenuButton" @click="toggleMobileMenu" class="mobile-menu-button"></button>
+      
+      <div :class="{'show-mobile-menu': showMobileMenu}" class="mobile-menu-panel"  :style="{ height: mobileMenuHeight }" ref="mobileMenu">
+        <button @click="goToProfileSettings" class="button-account-mob">
+          <img src="@/assets/images/icon-person.svg" alt="Login Icon" style="margin-right: 8px;" />
+          Мой профиль
+        </button>
+        <button @click="$router.push('/adplace')" class="button-place-mini-mob">
+          Разместить объявление
+        </button>
+        <button class="catalog-mob" @click="handleClick">
+          Категории
+          <img :class="{ rotated: showDropdown }" src="@/assets/images/arrow-icon.svg" alt="Arrow Icon" style="margin-left: 8px;" />
+        </button>
+        <transition name="fade">
+          <div class="dropdown-mob" v-if="showDropdown">
+          <div class="dropdown-content-mob" id="dropdown-content">
+            <div class="dropdown-mini-mob" id="dropdown-mini-4">
+              <a href="#" id="chapter-4">Для детей</a>
+            </div>
+            <div class="dropdown-mini-mob" id="dropdown-mini-1">
+              <a href="#" id="chapter-1">Одежда, обувь, аксессуары</a>
+            </div>
+            <div class="dropdown-mini-mob" id="dropdown-mini-2">
+              <a href="#" id="chapter-2">Хобби и отдых</a>
+            </div>
+            <div class="dropdown-mini-mob" id="dropdown-mini-3">
+              <a href="#" id="chapter-3">Красота и здоровье</a>
+            </div>
+            <div class="dropdown-mini-mob" id="dropdown-mini-5">
+              <a href="#" id="chapter-5">Для дома и дачи</a>
+            </div>
+            <div class="dropdown-mini-mob" id="dropdown-mini-6">
+              <a href="#" id="chapter-6">Электроника</a>
+            </div>
+          </div>
+          </div>
+        </transition>
+      </div>
+
       <div class="dropdown">
         <button class="button-catalog" id="main-category" @click="toggleConfNumbForm">
           Категории
@@ -125,17 +212,11 @@ export default {
 header {
   height: 112px;
   width: 100%;
-
   border-bottom: 1px solid #c1c1c2;
-
-
   background: rgba(255, 255, 255, 1);
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
-
   position: fixed;
   top: 0;
   left: 0;
@@ -152,50 +233,44 @@ header.scrolled {
 .logo {
   height: fit-content;
   width: fit-content;
-
   color: #000;
   font-family: Comfortaa, serif;
   font-size: 48px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  letter-spacing: 2.4px;
-
+  letter-spacing: 2px;
   margin-top: 20px;
   margin-left: 65px;
-
+  margin: 0;
+  flex-shrink: 0;
   cursor: pointer;
+  align-self: center;
+  margin-left: 5vw;
 }
 
 .logo:hover {
   transform: scale(1.01);
-
 }
 
 .search {
   display: flex;
   justify-content: end;
   align-items: center;
-
-
   width: 27.375rem;
   height: 3.75rem;
   margin-top: 28px;
   margin-left: 5vw;
-
 }
 
 
 .search input {
   width: 27.375rem;
   height: 3.75rem;
-
   outline: none;
-
   border-radius: 1.5625rem;
   border: 3px solid #D9D9D9;
   background: #FFF;
-
   color: #000;
   font-family: Manrope, serif;
   font-size: 1.25rem;
@@ -213,14 +288,12 @@ header.scrolled {
   background-size: 100% 100%;
   cursor: pointer;
   outline: none;
-
   fill: #0021CF;
   stroke-width: 3px;
   stroke: #0021CF;
   border-radius: 1rem;
-
   position: absolute;
-  margin-right: 0.5vw;
+  margin-right: 8px;
 }
 
 .search button:before {
@@ -232,10 +305,13 @@ header.scrolled {
   cursor: pointer
 }
 
+.search button {
+  z-index: 1;
+}
+
 .buttons {
   height: fit-content;
   width: fit-content;
-
   color: #000;
   text-align: center;
   font-family: Geologica, serif;
@@ -243,28 +319,23 @@ header.scrolled {
   font-style: normal;
   font-weight: 100;
   line-height: normal;
-
   display: flex;
   flex-direction: row;
-
   margin-top: 28px;
 }
 
 .button-catalog:hover,
-.button-account:hover,
 .button-place-mini:hover {
   flex-shrink: 0;
   border-radius: 25px;
   transform: scale(1.03);
   background: rgba(255, 180, 239, 0.14);
+}
 
-  color: #000;
-  text-align: center;
-  font-family: Manrope;
-  font-size: 1.25rem;
-  font-style: normal;
-  font-weight: 200;
-  line-height: normal;
+.button-account:hover {
+  flex-shrink: 0;
+  border-radius: 25px;
+  transform: scale(1.03);
 }
 
 .button-catalog {
@@ -276,12 +347,9 @@ header.scrolled {
 .button-place-mini {
   height: 3.75rem;
   width: 16.1875rem;
-
   flex-shrink: 0;
   border-radius: 25px;
   border: 3px solid #0021CF;
-
-
   margin-right: 20px;
 }
 
@@ -289,12 +357,15 @@ header.scrolled {
   width: 3.75rem;
   height: 3.75rem;
   flex-shrink: 0;
-
   border-radius: 3.125rem;
   border: 3px solid #0021CF;
   background: rgba(255, 180, 239, 0.50) url(assets/images/account_circle_logo.svg);
   background-size: 100% 100%;
   margin-right: 3.12rem;
+}
+
+.logo.hidden {
+  display: none;
 }
 
 .dropdown {
@@ -308,7 +379,6 @@ header.scrolled {
   background-color: #f9f9f9;
   min-width: 160px;
   z-index: 1;
-
   margin-right: 10px;
 }
 
@@ -323,7 +393,6 @@ header.scrolled {
   min-width: 160px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
-
   margin-top: -36px;
   margin-left: -298px;
 }
@@ -334,7 +403,6 @@ header.scrolled {
 
 .button-login {
   width: 69px;
-
   margin-right: 45px;
 }
 
@@ -344,11 +412,9 @@ header.scrolled {
   flex-shrink: 0;
   border-radius: 25px;
   border: 3px solid #0021CF;
-
   margin-right: 74px;
 }
 
-/* for form & modal windows */
 .overlay {
   position: fixed;
   top: 0;
@@ -357,5 +423,230 @@ header.scrolled {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 1; /* Make sure this is below your login form in z-index */
+}
+
+.mobile-menu-panel {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  background-color: white;
+  transition: right 0.3s ease;
+  z-index: 1000;
+  margin-top: 70px;
+  height: 500px;
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 18px;
+}
+
+.mobile-menu-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mobile-menu-button {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.show-mobile-menu {
+  margin-top: 70px;
+  right: 0;
+  height: 200px;
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 18px;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+}
+
+.button-account-mob,
+.button-place-mini-mob {
+  border: 1px solid black;
+  margin-top: 15px;
+  border-radius: 18px;
+  height: 51px;
+  width: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0021CF;
+  font-family: 'Comfortaa';
+}
+
+.catalog-mob {
+  margin-bottom: 10px;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  margin-left: 95px;
+}
+
+.dropdown-content-mob {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 15px;
+}
+
+.dropdown-mini-mob {
+    width: 100%;
+    text-align: right;
+}
+
+.dropdown-mini-mob a {
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    color: #000;
+}
+
+img {
+  transition: transform 0.3s;
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
+@media only screen and (max-width: 880px) {
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    height: 60px;
+  }
+
+  .search input:focus {
+    width: 75vw;
+    left: 0;
+    z-index: 1;
+    transition: width 0.3s ease-in-out;
+  }
+
+  .logo {
+    font-size: 22.54px;
+    text-align: center;
+    margin: 0;
+    margin-left: 3vw;
+  }
+
+  .search {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin: 0px;
+  }
+
+  .search input {
+    height: 80%;
+    width: 150px;
+    border-radius: 18px;
+    margin: 0 10px;
+  }
+
+  .search button {
+    border-radius: 13px;
+    height: 35px;
+    width: 35px;
+    margin-right: 17px;
+  }
+
+  .button-catalog,
+  .button-place-mini,
+  .button-account {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+    fill: #0021CF;
+    background-image: url(../assets/images/burger-menu.svg);
+    margin-top: 40%;
+  }
+
+  .buttons {
+    margin: 0px;
+  }
+}
+
+@media (min-width: 880px) {
+  .show-mobile-menu {
+      right: -250px;
+      height: 500px;
+      box-shadow: none;
+  }
+
+  .logo.hidden {
+    display: inline;
+  }
+}
+
+@media (min-width: 881px) and (max-width: 1024px) {
+  .search input{
+    width: 30vw;
+  }
+
+  .search {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 30vw;
+    height: 3.75rem;
+    margin-top: 28px;
+    margin-left: 5vw;
+  }
+
+  .buttons button {
+    font-size: 18px;
+    padding: 8px;
+    margin-right: 1vw;
+  }
+
+  .button-account {
+    width: 60px;
+  }
+
+  .logo {
+    font-size: 25px;
+    margin-left: 1vw;
+  }
+
+  .search {
+    margin-left: 10px;
+  }
+
+  .mobile-menu-panel{
+    display: none;
+  }
+}
+
+@media (min-width: 1025px) {
+  .search input{
+    width: 25vw;
+  }
+
+  .search{
+    width: 30vw;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .buttons button {
+    font-size: 18px;
+    padding: 10px;
+    margin-right: 1vw;
+  }
+
+  .logo {
+    margin-left: 3vw;
+  }
 }
 </style>

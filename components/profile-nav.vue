@@ -85,19 +85,15 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: baseline;
-
   border-right: 2px solid #D9D9D9;
-
   padding-left: 44px;
   padding-top: 38px;
-
   height: 876px;
   width: 326px;
 }
 
 #userName {
   width: 272px;
-
   text-align: left;
   color: #000;
   font-family: Comfortaa;
@@ -105,7 +101,6 @@ nav {
   font-style: normal;
   font-weight: 100;
   line-height: normal;
-
   padding-top: 13.9px;
   padding-bottom: 14px;
 }
@@ -150,12 +145,10 @@ nav {
   font-style: normal;
   font-weight: 100;
   line-height: normal;
-
 }
 
 #button-place-mini {
   width: 213px;
-
   margin-top: 8px;
   margin-bottom: 29px;
 }
@@ -165,7 +158,6 @@ nav {
   border-radius: 25px;
   transform: scale(1.03);
   background: rgba(255, 180, 239, 0.14);
-
   color: #000;
   text-align: center;
   font-family: Manrope;
@@ -178,12 +170,9 @@ nav {
 .button-place-mini {
   height: 3.75rem;
   width: 16.1875rem;
-
   flex-shrink: 0;
   border-radius: 25px;
   border: 3px solid #0021CF;
-
-
   margin-right: 20px;
 }
 
@@ -192,6 +181,5 @@ nav {
 #save-changes:hover,
 .nav:hover {
   transform: scale(1.03);
-
 }
 </style>
