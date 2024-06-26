@@ -1,213 +1,123 @@
 <script setup>
+import { ref } from 'vue';
 
+//реактивный массив вопросов и ответов
+const faqs = ref([
+  { question: 'Вопрос 1', answer: '', isOpen: false },
+  { question: 'Вопрос 2', answer: '', isOpen: false },
+  { question: 'Вопрос 3', answer: 'Ответ на вопрос\nОтвет на вопрос\nОтвет на вопрос\nОтвет на вопрос', isOpen: false },
+  { question: 'Вопрос 4', answer: '', isOpen: false },
+]);
+
+//функция для переключения состояния (открыт/закрыт) для вопросов
+function toggleFaq(index) {
+  faqs.value[index].isOpen = !faqs.value[index].isOpen;
+}
 </script>
 
 <template>
-
   <div class="content">
-    <div id="txt-container-header" onclick="window.location.href='#'">
-      Настройки
+    <div class="top-content">
+      <div id="txt-container-header">
+        Поддержка
+      </div>
+      <div class="faq">
+        <h2>F.A.Q.</h2>
+        <div v-for="(faq, index) in faqs" :key="index" class="faq-item"> <!-- Цикл v-for для отображения всех вопросов из массива faqs. -->
+          <div class="faq-question" @click="toggleFaq(index)">
+            <span>{{ faq.question }}</span>
+            <button :class="['faq-button', faq.isOpen ? 'faq-button-open' : '']">{{ faq.isOpen ? '-' : '+' }}</button>
+          </div>
+          <div v-if="faq.isOpen" class="faq-answer" v-html="faq.answer"></div>
+        </div>
+      </div>
     </div>
-    <div class="settings-items">
-      <h2>Имя</h2>
-      <h3>Иван Иванов</h3>
-      <button class="change" id="change-userName">
-        Изменить
-      </button>
-    </div>
-    <div class="settings-items">
-      <h2>Фото</h2>
-      <h3><img src="../assets/images/ava-settings.svg" alt="Ваше фото профиля"></h3>
-      <button class="change" id="change-userPhoto">
-        Изменить
-      </button>
-    </div>
-    <div class="settings-items">
-      <h2>Телефон</h2>
-      <h3>+7 (999) 000 00-00</h3>
-      <button class="change" id="change-userPhone">
-        Изменить
-      </button>
-    </div>
-    <div class="settings-items">
-      <h2>Город</h2>
-      <h3>Ростов-на-Дону</h3>
-      <button class="change" id="change-userCity">
-        Изменить
-      </button>
-    </div>
-    <div class="settings-items">
-      <h2>Email</h2>
-      <h3>example@email.ru</h3>
-      <button class="change" id="change-userEmail">
-        Изменить
-      </button>
-    </div>
-    <div class="settings-items">
-      <h2>Соц. сеть</h2>
-      <h3>https://vk.com/brand</h3>
-      <button class="change" id="change-userSocialNetwork">
-        Изменить
-      </button>
-    </div>
-    <div class="buttons-save-delete">
-      <button id="log-out">
-        Выйти
-      </button>
-      <button id="delete-an-account">
-        Удалить аккаунт
-      </button>
-      <button id="save-changes">
-        Сохранить изменения
-      </button>
+    <div class="contact">
+      <p>Остались вопросы?</p>
+      <p>Напишите нам на почту и мы ответим в течение суток</p>
+      <a href="mailto:swipe-up@yandex.ru">swipe-up@yandex.ru</a>
     </div>
   </div>
-
 </template>
 
 <style scoped>
 .content {
-  flex: 869;
   display: flex;
   flex-direction: column;
-  align-items: baseline;
+  height: 876px;
+  padding: 4vw;
+  font-family: 'Comfortaa', sans-serif;
+  width: 100%;
+}
 
-  padding-top: 38px;
-  padding-left: 47px;
-  padding-right: 190.27px;
+.top-content {
+  flex-grow: 1;
 }
 
 #txt-container-header {
-  height: fit-content;
-  width: fit-content;
-
   color: #000;
-  font-family: Comfortaa;
   font-size: 40px;
-  font-style: normal;
   font-weight: 100;
-  line-height: normal;
-
-  padding-bottom: 27px;
+  margin-bottom: 20px;
 }
 
-.settings-items {
+.faq {
+  margin-bottom: 20px;
+}
 
-  width: 100%;
-  height: 46px;
+.faq h2 {
+  margin-bottom: 10px;
+}
 
+.faq-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.faq-question {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-
-  margin-bottom: 31px;
-  margin-right: 57px;
-
-
-
+  cursor: pointer;
+  font-size: 18px;
 }
 
-h2 {
-  width: 150px;
-
-  color: #000;
-  font-family: Manrope;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: normal;
-
-  line-height: normal;
+.faq-answer {
+  margin-top: 10px;
+  white-space: pre-line;
 }
 
-h3 {
-  width: 100%;
-
-  color: #000;
-  font-family: Manrope-Light;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 100;
-  line-height: normal;
-
-  font-weight: Light;
+.contact {
+  border: 1px solid #0000ff;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 18px;
+  line-height: 1.5;
 }
 
-
-.change {
-  width: fit-content;
-
-  color: #0021CF;
-  font-family: Manrope;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 100;
-  line-height: normal;
+.contact a {
+  color: #0000ff;
+  text-decoration: none;
 }
 
-
-
-.buttons-save-delete {
-  width: 100%;
-  height: fit-content;
-  display: flex;
-
-  flex-direction: row;
-  justify-content: end;
-
-  margin-top: 40px;
-
-  color: #000;
-  font-family: Manrope;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 100;
-  line-height: normal;
-}
-
-#log-out {
-  width: 114px;
+.faq-button {
+  font-size: 24px;
+  font-weight: bold;
   height: 40px;
-
-  flex-shrink: 0;
-  border-radius: 25px;
-  border: 3px solid #0021CF;
-  margin-right: 20px;
-}
-
-#delete-an-account {
-  width: 218px;
-  height: 40px;
-
-  flex-shrink: 0;
-  border-radius: 25px;
-  border: 3px solid #0021CF;
-  margin-right: 20px;
-}
-
-#save-changes {
-  width: 254px;
-  height: 40px;
-
-  color: #FFF;
-
-  flex-shrink: 0;
-  border-radius: 25px;
-  border: 3px;
   background-color: #0021CF;
+  width: 40px;
+  border-radius: 16px;
+  color: white;
+  border: 3px solid #0021CF;
+  cursor: pointer;
 }
 
-/* Zoom for all */
-#delete-an-account:hover,
-#log-out:hover,
-#save-changes:hover,
-.nav:hover {
-  transform: scale(1.03);
-
-}
-
-#delete-an-account:hover,
-#log-out:hover {
-  background: rgba(255, 180, 239, 0.14);
+.faq-button-open {
+  height: 40px;
+  width: 40px;
+  border-radius: 16px;
+  background-color: white;
+  border: 3px solid #0021CF;
+  color: #0021CF;
 }
 </style>
