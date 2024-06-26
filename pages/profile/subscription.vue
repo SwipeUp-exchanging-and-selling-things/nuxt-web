@@ -48,4 +48,18 @@ main {
   flex-direction: row;
 }
 
+@media (max-width: 880px) { 
+  .container {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    margin-bottom: 3vh;
+    height: auto;
+  }
+
+  main {
+    padding-top: 30px;
+  }
+}
+
 </style>

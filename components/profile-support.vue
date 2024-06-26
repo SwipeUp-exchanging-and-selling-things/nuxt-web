@@ -120,4 +120,10 @@ function toggleFaq(index) {
   border: 3px solid #0021CF;
   color: #0021CF;
 }
+
+@media (max-width: 880px) { 
+  #txt-container-header {
+    text-align: center;
+  }
+}
 </style>
