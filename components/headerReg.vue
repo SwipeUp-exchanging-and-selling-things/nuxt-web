@@ -77,8 +77,7 @@ export default {
     }
   },
   async mounted() {
-    // await this.$runTokenVerification();
-    //TODO 
+    await this.$runTokenVerification();
   },
   mounted() {
     document.addEventListener('click', this.handleOutsideClick);

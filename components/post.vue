@@ -289,6 +289,7 @@
     display: block;
     margin-bottom: 45px;
   }
+  
   .guide {
     display: flex;
     flex-direction: column;

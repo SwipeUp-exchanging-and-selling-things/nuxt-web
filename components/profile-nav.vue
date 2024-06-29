@@ -348,7 +348,4 @@ nav {
   }
 }
 
-@media (min-width: 880px) and (max-width: 1250px) {
-
-}
 </style>

@@ -190,9 +190,8 @@ export default {
     },
   },
   async mounted() {
-    // if (await this.getData()) {
-    // }
-    // TODO
+    if (await this.getData()) {
+    }
   }
 }
 </script>

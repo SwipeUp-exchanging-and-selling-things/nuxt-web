@@ -58,7 +58,6 @@
   display: flex;
   flex-direction: column;
   align-items: baseline;
-
   padding-top: 38px;
   padding-left: 47px;
   padding-right: 190.27px;
@@ -67,29 +66,22 @@
 #txt-container-header {
   height: fit-content;
   width: fit-content;
-
   color: #000;
   font-family: Comfortaa;
   font-size: 40px;
   font-style: normal;
   font-weight: 100;
   line-height: normal;
-
   padding-bottom: 27px;
 }
 
 .container-ads {
-
   width: 814px;
   height: 345px;
-
   display: flex;
   flex-direction: row;
-
   border: 2px solid #0021CF;
   border-radius: 30px;
-
-
   padding-top: 23px;
   padding-left: 26px;
   margin-bottom: 36px;
@@ -100,7 +92,6 @@
   flex-direction: column;
   justify-content: baseline;
   align-items: baseline;
-
   width: 190px;
   height: 190px;
 }
@@ -110,10 +101,8 @@
   flex-direction: column;
   justify-content: baseline;
   align-items: end;
-
   width: 100%;
   height: 100%;
-
   padding-top: 2px;
   padding-left: 25px;
   padding-right: 17px;
@@ -125,20 +114,15 @@
   cursor: pointer;
 }
 
-
-
 h2 {
   width: 100%;
   height: fit-content;
-
   color: #000;
   font-family: Manrope;
   font-size: 20px;
   font-style: normal;
   font-weight: normal;
-
   line-height: normal;
-
   padding-right: 35px;
   margin-bottom: 10px;
 }
@@ -146,29 +130,23 @@ h2 {
 h3 {
   width: 100%;
   height: 100%;
-
   color: #000;
   font-family: Manrope-Light;
   font-size: 20px;
   font-style: normal;
   font-weight: 100;
   line-height: normal;
-
   font-weight: Light;
-
   padding-right: 80px;
-
 }
 
 .buttons-remove-publication {
   width: 262.71px;
   height: 53px;
-
   flex-shrink: 0;
   border-radius: 25px;
   border: 3px solid #0021CF;
   margin-right: 20px;
-
   color: #000;
   font-family: Manrope-Light;
   font-size: 20px;
@@ -181,10 +159,42 @@ h3 {
 .buttons-remove-publication:hover,
 .nav:hover {
   transform: scale(1.03);
-
 }
 
 .buttons-remove-publication:hover {
   background: rgba(255, 180, 239, 0.14);
+}
+
+@media (max-width: 880px) { 
+  #txt-container-header {
+    text-align: center;
+    width: 100%;
+  }
+
+  .content {
+    padding: 0;
+    padding-top: 38px;
+    width: 100vw;
+    padding-left: 7vw;
+    padding-right: 7vw;
+  }
+
+  .container-ads {
+    width: auto;
+    height: auto;
+  }
+}
+
+@media (min-width: 880px) and (max-width: 1150px) {
+  .content {
+    padding-left: 4vw;
+    padding-right: 4vw;
+    width: 50vw;
+  }
+
+  .container-ads {
+    width: 55vw;
+    height: auto;
+  }
 }
 </style>
