@@ -245,4 +245,44 @@ button:hover {
   transform: scale(1.12);
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .container {
+    width: 80vw;
+    padding: 0;
+    align-items: center;
+  }
+  .inputs{
+    width: 60vw;
+    margin-bottom: 1vh;
+  }
+  #regAndLog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5vh;
+  }
+  #regAndLog #ButtonLog {
+    margin-bottom: 1vh;
+  }
+  #registration h1[data-v-0f833810] {
+    color: #000;
+    font-feature-settings: 'liga' off;
+    font-family: Comfortaa, serif;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+  }
+  .close-button {
+    transform: none;
+  }
+  #registration{
+    width: 100%;
+    margin-top: 3vh;
+    margin-bottom: 5vh;
+  }
+}
 </style>

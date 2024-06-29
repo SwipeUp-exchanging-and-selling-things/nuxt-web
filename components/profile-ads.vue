@@ -1,55 +1,66 @@
-<script setup>
+<script>
+import request from 'superagent';
 
+export default {
+  data() {
+    return {
+      ads: []
+    };
+  },
+  async mounted() {
+    await this.fetchUserAds();
+  },
+  methods: {
+    async fetchUserAds() {
+      const url = 'http://localhost:8081/api/listings/user';
+      let response = {};
+
+      const headers = {
+        'userId': 1  // Using test userId
+      };
+
+      try {
+        response = await request.get(url)
+          .set(headers);
+
+        this.ads = response.body;
+      } catch (error) {
+        console.error("Ошибка получыения данных:", error);
+      }
+    },
+    async removeAd(adId) {
+      const url = `http://localhost:8081/api/listings/${adId}`;
+      
+      try {
+        await request.delete(url);
+        this.ads = this.ads.filter(ad => ad.id !== adId);
+      } catch (error) {
+        console.error("Ошибка при удалении объявления:", error);
+      }
+    }
+  }
+}
 </script>
 
+
 <template>
-    <div class="content">
-      <div id="txt-container-header" onclick="window.location.href='#'">
-        Мои объявления
+  <div class="content">
+    <div id="txt-container-header">
+      Мои объявления
+    </div>
+    <div class="container-ads" v-for="ad in ads" :key="ad.id">
+      <div class="img-promocode">
+        <img :src="ad.photoUrl" alt="фотографии нет">
       </div>
-
-      <div class="container-ads">
-        <div class="img-promocode">
-          <img src="../assets/images/empty-ava.svg" alt="Your ads" onclick="window.location.href = '#'">
-        </div>
-
-        <div class="container-and-button">
-          <h2 onclick="window.location.href='#'">
-            Коляска в хорошем состоянии
-          </h2>
-          <h3>
-            Кoляcка в идеальном cостоянии, всe целoе, чистое. Пользoвалиcь в ocнoвнoм люлькoй, cидячей
-            практичecки нe пoльзoвалиcь. В коляскe нe кушали, в обуви не eздили. Рaзобpаннaя, пoмытaя
-            стoит упaкoвaнная в пакeтах. В кoмплектe сумка, дождeвик, мoскитная сетка.
-          </h3>
-          <button class="buttons-remove-publication">
-            Снять с публикации
-          </button>
-        </div>
-      </div>
-
-      <div class="container-ads">
-        <div class="img-promocode">
-          <img src="../assets/images/empty-ava.svg" alt="Your ads" onclick="window.location.href = '#'">
-        </div>
-
-        <div class="container-and-button">
-          <h2 onclick="window.location.href='#'">
-            Коляска в хорошем состоянии
-          </h2>
-          <h3>
-            Кoляcка в идеальном cостоянии, всe целoе, чистое. Пользoвалиcь в ocнoвнoм люлькoй, cидячей
-            практичecки нe пoльзoвалиcь. В коляскe нe кушали, в обуви не eздили. Рaзобpаннaя, пoмытaя
-            стoит упaкoвaнная в пакeтах. В кoмплектe сумка, дождeвик, мoскитная сетка. Кoляcка в
-            идеальном cостоянии, всe целoе, чистое.
-            Текст длиннее
-          </h3>
-          <button class="buttons-remove-publication">
-            Снять с публикации
-          </button>
-        </div>
+      <div class="container-and-button">
+        <h2>{{ ad.name }}</h2>
+        <h3>{{ ad.description }}</h3>
+        <button class="buttons-remove-publication" @click="removeAd(ad.id)">
+          Снять с публикации
+        </button>
       </div>
     </div>
+  </div>
 </template>
 
 <style scoped>
@@ -147,6 +158,7 @@ h3 {
   border-radius: 25px;
   border: 3px solid #0021CF;
   margin-right: 20px;
+  margin-top: 40px;
   color: #000;
   font-family: Manrope-Light;
   font-size: 20px;
@@ -165,6 +177,12 @@ h3 {
   background: rgba(255, 180, 239, 0.14);
 }
 
+@media (max-width: 600px) { 
+  .buttons-remove-publication {
+    margin-right: 22vw;
+  }
+}
+
 @media (max-width: 880px) { 
   #txt-container-header {
     text-align: center;
@@ -180,7 +198,7 @@ h3 {
   }
 
   .container-ads {
-    width: auto;
+    width: 85vw;
     height: auto;
   }
 }

@@ -116,7 +116,7 @@ nav {
   border-right: 2px solid #D9D9D9;
   padding-left: 44px;
   padding-top: 38px;
-  height: 876px;
+  height: auto;
   width: 326px;
 }
 
