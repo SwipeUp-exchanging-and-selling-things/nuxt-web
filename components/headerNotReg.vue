@@ -115,33 +115,28 @@ export default {
         <transition name="fade">
           <div class="dropdown-mob" v-if="showDropdown">
           <div class="dropdown-content-mob" id="dropdown-content">
-            <div class="dropdown-mini-mob" id="dropdown-mini-4">
-              <a href="#" id="chapter-4">Для детей</a>
+            <div class="dropdown-mini-mob" id="dropdown-mini-mob-4">
+              <a href="#" id="chapter-4-mob">Для детей</a>
             </div>
-            <div class="dropdown-mini-mob" id="dropdown-mini-1">
-              <a href="#" id="chapter-1">Одежда, обувь, аксессуары</a>
+            <div class="dropdown-mini-mob" id="dropdown-mini-mob-1">
+              <a href="#" id="chapter-1-mob">Одежда, обувь, аксессуары</a>
             </div>
-            <div class="dropdown-mini-mob" id="dropdown-mini-2">
-              <a href="#" id="chapter-2">Хобби и отдых</a>
+            <div class="dropdown-mini-mob" id="dropdown-mini-mob-2">
+              <a href="#" id="chapter-2-mob">Хобби и отдых</a>
             </div>
-            <div class="dropdown-mini-mob" id="dropdown-mini-3">
-              <a href="#" id="chapter-3">Красота и здоровье</a>
+            <div class="dropdown-mini-mob" id="dropdown-mini-mob-3">
+              <a href="#" id="chapter-3-mob">Красота и здоровье</a>
             </div>
-            <div class="dropdown-mini-mob" id="dropdown-mini-5">
-              <a href="#" id="chapter-5">Для дома и дачи</a>
+            <div class="dropdown-mini-mob" id="dropdown-mini-mob-5">
+              <a href="#" id="chapter-5-mob">Для дома и дачи</a>
             </div>
-            <div class="dropdown-mini-mob" id="dropdown-mini-6">
-              <a href="#" id="chapter-6">Электроника</a>
+            <div class="dropdown-mini-mob" id="dropdown-mini-mob-6">
+              <a href="#" id="chapter-6-mob">Электроника</a>
             </div>
           </div>
           </div>
         </transition>
       </div>
-
-      <LoginForm v-if="showForm" />
-      <RegistrationForm v-if="showFormReg" />
-      <ConfirmationNumber v-if="showFormConfNumb" />
-      <SuccessfullyRegistrationеForm v-if="showSuccesReg" />
 
       <div class="dropdown">
         <button class="button-catalog" id="main-category">

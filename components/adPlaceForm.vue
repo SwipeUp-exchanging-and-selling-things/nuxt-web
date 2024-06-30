@@ -201,9 +201,6 @@ export default {
 };
 </script>
 
-
-
-
 <template>
   <main>
     <div class="place_ad">
