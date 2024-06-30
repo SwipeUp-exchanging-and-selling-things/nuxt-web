@@ -18,6 +18,7 @@ export default {
       const headers = {
         'userId': 1  // Using test userId
       };
+      //TODO
 
       try {
         response = await request.get(url)
@@ -37,6 +38,9 @@ export default {
       } catch (error) {
         console.error("Ошибка при удалении объявления:", error);
       }
+    },
+    getPhotoUrl(photoUrl) {
+      return `../${photoUrl}`;
     }
   }
 }
@@ -50,7 +54,7 @@ export default {
     </div>
     <div class="container-ads" v-for="ad in ads" :key="ad.id">
       <div class="img-promocode">
-        <img :src="ad.photoUrl" alt="фотографии нет">
+        <img :src="getPhotoUrl(ad.photoUrl)" alt="фотографии нет">
       </div>
       <div class="container-and-button">
         <h2>{{ ad.name }}</h2>
@@ -88,7 +92,7 @@ export default {
 
 .container-ads {
   width: 814px;
-  height: 345px;
+  height: auto;
   display: flex;
   flex-direction: row;
   border: 2px solid #0021CF;
@@ -178,8 +182,19 @@ h3 {
 }
 
 @media (max-width: 600px) { 
+  h3 {
+    margin-right: 10px;
+    width: 65vw;
+    text-align: start;
+  }
+
   .buttons-remove-publication {
-    margin-right: 22vw;
+    margin-right: 27vw;
+  }
+
+  .img-promocode img {
+    width: 100px;
+    max-width: 100px;
   }
 }
 
