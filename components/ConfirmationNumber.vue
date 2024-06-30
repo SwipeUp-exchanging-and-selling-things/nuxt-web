@@ -271,4 +271,41 @@ button:hover {
   transform: scale(1.12);
   cursor: pointer;
 }
+
+@media (max-width: 740px) { 
+  .container {
+    width: 90vw;
+    height: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #secretCode {
+    width: 85vw;
+  }
+
+  #regAndLog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .close-button {
+    width: 80vw;
+  }
+
+  .phone[data-v-3ff6ad0e] {
+    width: 80vw;
+  }
+
+  #login h1[data-v-3ff6ad0e] {
+    font-size: 30px;
+  }
+
+  #ButtonChangeNumber {
+    margin-bottom: 15px;
+  }
+}
 </style>
