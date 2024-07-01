@@ -1,9 +1,20 @@
 <script>
+import User from "../plugins/classes/User";
+import request from 'superagent';
+import Cookies from 'js-cookie';
+
 export default {
-  mounted() {
+  data() {
+    return {
+      user: new User()
+    };
+  },
+  async mounted() {
     this.updateActiveButton();
     // Вызов функции при изменении размера окна с использованием привязки к this
     window.addEventListener('resize', this.applyActiveElementStyles);
+    if (await this.getData()) {
+    }
   },
   beforeDestroy() {
     // Удаление обработчика события при размонтировании компонента
@@ -63,12 +74,44 @@ export default {
           }
         }
       }
+    },
+    async getData() {
+      const url = 'http://localhost:8080/authentication/authorization';
+      const token = Cookies.get('tokenJwt');
+      let response = {};
+
+      const headers = {
+        'requestRoute': 'users',
+        'requestMethod': 'GET'
+      };
+
+      const queryParams = {
+        token: token
+      };
+
+      const body = {}
+      try {
+        response = await request.post(url)
+          .set(headers)
+          .query(queryParams)
+          .send(body);
+
+      } catch (error) {
+        console.error('Ошибка при загрузке данных:', error);
+        await alert('К сожалению, произошла ошибка при загрузке данных. Пожалуйста, попробуйте ещё раз чуть позже. Если проблема сохранится, обратитесь в нашу службу технической поддержки. Мы всегда готовы помочь!');
+        await this.$router.push('/auth');
+        return false;
+      }
+
+      let jsonObject = JSON.parse(response.text);
+      await Object.assign(this.user, jsonObject);
+
+      console.log(this.users)
+      return true;
     }
   }
 }
 </script>
-
-
 
 <template>
   <nav>
@@ -77,7 +120,7 @@ export default {
         <img src="../assets/images/ava.svg" alt="Ваша аватарка" class="zoomable-image">
       </div>
         <div class="info-container">
-        <button id="userName" onclick="window.location.href='#'">Иван Иванов</button>
+        <button id="userName" onclick="window.location.href='#'">{{ this.user.name}}</button>
         <button id="status-subscripe" onclick="window.location.href='#'">Статус подписки: подключена</button>
         <button id="balance" onclick="window.location.href='#'">Баланс свопов: 5</button>
       </div>
@@ -125,7 +168,7 @@ nav {
   text-align: left;
   color: #000;
   font-family: Comfortaa;
-  font-size: 36px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 100;
   line-height: normal;

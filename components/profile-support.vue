@@ -44,7 +44,7 @@ function toggleFaq(index) {
 .content {
   display: flex;
   flex-direction: column;
-  height: 876px;
+  height: auto;
   padding: 4vw;
   font-family: 'Comfortaa', sans-serif;
   width: 100%;

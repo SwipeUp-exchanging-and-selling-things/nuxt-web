@@ -175,13 +175,22 @@ h3 {
     padding: 0;
     padding-top: 38px;
     width: 100vw;
-    padding-left: 7vw;
-    padding-right: 7vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .container-promocode {
-    width: auto;
+    width: 90vw;
     height: auto;
+  }
+
+  .container-and-button {
+    flex-direction: column-reverse;
+  }
+
+  .buttons-open-qr {
+    width: 40vw;
   }
 }
 

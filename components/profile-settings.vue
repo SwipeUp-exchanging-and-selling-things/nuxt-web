@@ -458,6 +458,22 @@ h3 {
 }
 
 @media (max-width: 880px) {
+  .change, h3, h2 {
+    font-size: 16px;
+  }
+
+  h3 {
+    white-space: normal;
+    word-wrap: break-word;
+    min-width: 100px;
+  }
+
+  .settings-items[data-v-0836e982] {
+    width: 90vw;
+    margin-right: 0px;
+    
+  }
+
   .content{
     padding: 0;
     padding-top: 38px;

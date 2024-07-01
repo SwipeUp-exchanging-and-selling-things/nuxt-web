@@ -33,7 +33,7 @@ main {
 }
 
 .container {
-  height: 876px;
+  height: auto;
   width: 1224px;
   border: 2px solid #D9D9D9;
   border-radius: 25px;
@@ -56,21 +56,4 @@ main {
   }
 }
 
-@media (max-width: 376px) { 
-  .container{
-    margin-bottom: 7vh;
-  }
-}
-
-@media (max-width: 368px) { 
-  .container{
-    margin-bottom: 11vh;
-  }
-}
-
-@media (max-width: 349px) { 
-  .container{
-    margin-bottom: 17vh;
-  }
-}
 </style>

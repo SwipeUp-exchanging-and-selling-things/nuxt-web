@@ -212,13 +212,56 @@ h3 {
     padding: 0;
     padding-top: 38px;
     width: 100vw;
-    padding-left: 7vw;
-    padding-right: 7vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .container-deals {
-    width: auto;
+    width: 90vw;
     height: auto;
+    padding-left: 0;
+  }
+
+  .down {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .buttons-in-content {
+    margin: 0;
+    margin-bottom: 10px;
+    
+  }
+
+  .up {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container-and-button {
+    padding-top: 2px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 19px;
+    text-align: center;
+  }
+
+  h2 {
+    padding: 0;
+  }
+
+  h3 {
+    padding: 0;
+  }
+
+  .img-promocode {
+    width: 110px;
+    height: 140px;
   }
 }
 
