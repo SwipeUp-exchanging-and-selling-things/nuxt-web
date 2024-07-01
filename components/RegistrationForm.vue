@@ -146,6 +146,8 @@ export default {
   margin-bottom: 25px;
 }
 
+
+
 #login {
   color: #000;
   font-family: Geologica, serif;
@@ -250,12 +252,10 @@ button:hover {
     padding: 0;
     align-items: center;
   }
-
   .inputs{
     width: 60vw;
     margin-bottom: 1vh;
   }
-
   #regAndLog {
     display: flex;
     flex-direction: column;
@@ -263,11 +263,9 @@ button:hover {
     width: 100%;
     margin-bottom: 5vh;
   }
-
   #regAndLog #ButtonLog {
     margin-bottom: 1vh;
   }
-
   #registration h1[data-v-0f833810] {
     color: #000;
     font-feature-settings: 'liga' off;
@@ -278,11 +276,9 @@ button:hover {
     line-height: normal;
     text-align: center;
   }
-
   .close-button {
     transform: none;
   }
-
   #registration{
     width: 100%;
     margin-top: 3vh;

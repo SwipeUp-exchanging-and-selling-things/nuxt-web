@@ -26,26 +26,34 @@ import Profile_ads from "../../components/profile-ads.vue"
 main {
   height: fit-content;
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   padding-top: 112px;
 }
 
 .container {
-  height: 876px;
+  height: auto;
   width: 1224px;
-
   border: 2px solid #D9D9D9;
   border-radius: 25px;
-
   margin-top: 57px;
   margin-bottom: 9vh;
-
   display: flex;
   flex-direction: row;
 }
 
+@media (max-width: 880px) { 
+  .container {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    margin-bottom: 3vh;
+    height: auto;
+  }
+
+  main {
+    padding-top: 30px;
+  }
+}
 </style>

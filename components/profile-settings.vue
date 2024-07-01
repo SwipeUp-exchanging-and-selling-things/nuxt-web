@@ -190,9 +190,8 @@ export default {
     },
   },
   async mounted() {
-    // if (await this.getData()) {
-    // }
-    // TODO
+    if (await this.getData()) {
+    }
   }
 }
 </script>
@@ -294,36 +293,30 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: baseline;
-
   padding-top: 38px;
-  padding-left: 47px;
-  padding-right: 190.27px;
+  padding-left: 4vw;
+  padding-right: 4vw;
 }
 
 #txt-container-header {
   height: fit-content;
   width: fit-content;
-
   color: #000;
   font-family: Comfortaa, serif;
   font-size: 40px;
   font-style: normal;
   font-weight: 100;
   line-height: normal;
-
   padding-bottom: 27px;
 }
 
 .settings-items {
-
   width: 100%;
   height: 46px;
-
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
   margin-bottom: 31px;
   margin-right: 57px;
 }
@@ -338,79 +331,66 @@ export default {
 
 h2 {
   width: 150px;
-
   color: #000;
   font-family: Manrope, serif;
   font-size: 20px;
   font-style: normal;
   font-weight: normal;
-
   line-height: normal;
 }
 
 h3 {
   width: 100%;
-
   color: #000;
   font-family: Manrope-Light, serif;
   font-size: 20px;
   font-style: normal;
   line-height: normal;
-
   font-weight: Light;
+  margin-left: 4vw;
 }
+
 .settings-items input{
   width: 100%;
-
   color: #000;
   font-family: Manrope-Light, serif;
   font-size: 20px;
   font-style: normal;
   line-height: normal;
-
   font-weight: Light;
-
   display: none;
 }
 
 #region-select{
   display: none;
   width: 100%;
-
   appearance: none;
-
   -webkit-appearance: none;
   /* Safari и Chrome */
   -moz-appearance: none;
   /* Mozilla */
   -ms-appearance: none;
   /* IE */
-
   background-image: url(../assets/images/expand_more_.svg);
   background-repeat: no-repeat;
   background-color: #fff;
   background-position: calc(100% - 15px) center;
-
   padding: 8px 32px 8px 16px;
   outline: none;
   cursor: pointer;
-
   border-radius: 1.5625rem;
   border: 3px solid #D9D9D9;
-
   color: rgba(0, 0, 0, 0.50);
   font-family: Manrope, serif;
   font-size: 1.25rem;
   font-style: normal;
   font-weight: 200;
   line-height: normal;
-
   margin-right: 20px;
 }
 
 .change {
   width: fit-content;
-
   color: #0021CF;
   font-family: Manrope, serif;
   font-size: 20px;
@@ -419,18 +399,13 @@ h3 {
   line-height: normal;
 }
 
-
-
 .buttons-save-delete {
   width: 100%;
   height: fit-content;
   display: flex;
-
   flex-direction: row;
   justify-content: end;
-
   margin-top: 40px;
-
   color: #000;
   font-family: Manrope, serif;
   font-size: 20px;
@@ -442,7 +417,6 @@ h3 {
 #log-out {
   width: 114px;
   height: 40px;
-
   flex-shrink: 0;
   border-radius: 25px;
   border: 3px solid #0021CF;
@@ -452,7 +426,6 @@ h3 {
 #delete-an-account {
   width: 218px;
   height: 40px;
-
   flex-shrink: 0;
   border-radius: 25px;
   border: 3px solid #0021CF;
@@ -462,18 +435,14 @@ h3 {
 #save-changes {
   width: 254px;
   height: 40px;
-
   color: #FFF;
-
   flex-shrink: 0;
   border-radius: 25px;
   border: 3px;
   background-color: #0021CF;
-
   cursor: default;
 }
 
-/* Zoom for all */
 #delete-an-account:hover,
 #log-out:hover {
   transform: scale(1.03);
@@ -484,8 +453,71 @@ h3 {
   background: rgba(255, 180, 239, 0.14);
 }
 
-/* Zoom effect class */
 .zoom-effect:hover {
   transform: scale(1.03);
+}
+
+@media (max-width: 880px) {
+  .change, h3, h2 {
+    font-size: 16px;
+  }
+
+  h3 {
+    white-space: normal;
+    word-wrap: break-word;
+    min-width: 100px;
+  }
+
+  .settings-items[data-v-0836e982] {
+    width: 90vw;
+    margin-right: 0px;
+    
+  }
+
+  .content{
+    padding: 0;
+    padding-top: 38px;
+    width: 90vw;
+    padding-left: 3vw;
+  }
+
+  #txt-container-header {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .settings-items input {
+    font-size: 15px;
+  }
+
+  .buttons-save-delete {
+    display: block;
+    margin-top: 0;
+  }
+
+  #save-changes,
+  #delete-an-account {
+    margin-top: 15px;
+  }
+}
+
+@media (min-width: 880px) and (max-width: 1250px) {
+  .content{
+    padding-left: 4vw;
+    padding-right: 4vw;
+    width: 50vw;
+  }
+}
+
+@media (min-width: 880px) and (max-width: 1060px) {
+  .buttons-save-delete {
+    display: block;
+    margin-top: 0;
+  }
+
+  #save-changes {
+    margin-top: 15px;
+  }
 }
 </style>
